@@ -169,7 +169,7 @@ public class ConversationActivity extends AppCompatActivity implements SendMedia
                 if(!isOutcoming){
                     contactStatus.setText(getString(R.string.typing));
                 }
-
+                adjustTimeCountersForEachMessage();
             }
 
             @Override
