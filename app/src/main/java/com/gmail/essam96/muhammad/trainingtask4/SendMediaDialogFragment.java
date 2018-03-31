@@ -32,7 +32,6 @@ public class SendMediaDialogFragment extends DialogFragment {
 
     public  interface OnCompleteListener {
         void onThumbnailComplete(Bitmap bitmap);
-        void onFullSizePhotoComplete(Uri imageUri);
     }
 
     private OnCompleteListener listener;
@@ -88,21 +87,10 @@ public class SendMediaDialogFragment extends DialogFragment {
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(getContext().getPackageManager()) != null) {
-            File photoFile = null;
-            try {
-                photoFile = createImageFile();
-            } catch (IOException e){
-                Toast.makeText(getContext(), "ERROR", Toast.LENGTH_SHORT).show();
-            }
-
-            if (photoFile != null){
-                Uri photoURI = FileProvider.getUriForFile(getContext(), "com.gmail.essam96.muhammad.trainingtask4.fileprovider", photoFile);
-                sendBackPhoto(photoURI);
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-            }
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
         }
     }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -117,28 +105,7 @@ public class SendMediaDialogFragment extends DialogFragment {
     }
 
     public void sendBackResult(Bitmap bitmap){
-        OnCompleteListener listener = (OnCompleteListener) getActivity();
+        listener = (OnCompleteListener) getActivity();
         listener.onThumbnailComplete(bitmap);
-    }
-
-    public void sendBackPhoto(Uri imageURI){
-        OnCompleteListener listener = (OnCompleteListener) getActivity();
-        listener.onFullSizePhotoComplete(imageURI);
-    }
-
-    String mCurrentPhotoPath;
-
-    private File createImageFile() throws IOException {
-
-        String imageFileName = "JPEG_1" + ".jpg";
-        File storageDir = Environment.getExternalStoragePublicDirectory("Android/data/com.gmail.essam96.muhammad.trainingtask4/files/Pictures");
-        File storageDir2;
-        if (!storageDir.exists()){
-            storageDir.mkdir();
-        }
-        File image = new File(storageDir, imageFileName);
-
-        mCurrentPhotoPath = image.getAbsolutePath();
-        return image;
     }
 }

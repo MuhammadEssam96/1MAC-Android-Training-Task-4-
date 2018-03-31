@@ -218,10 +218,10 @@ public class ConversationActivity extends AppCompatActivity implements SendMedia
         }
     }
 
-    private void sendPhotoMessage(Bitmap bitmap, Uri imageUri){
+    private void sendPhotoMessage(Bitmap bitmap){
         Long timeStampLong = System.currentTimeMillis();
         String timeStamp = formatTime(timeStampLong, getResources().getConfiguration().locale);
-        messages.add(new Message(bitmap, timeStamp, timeStampLong, isOutcoming, true, imageUri));
+        messages.add(new Message(bitmap, timeStamp, timeStampLong, isOutcoming));
         if(!isOutcoming){
             receivedMessageSoundPlayer.start();
         }
@@ -230,16 +230,9 @@ public class ConversationActivity extends AppCompatActivity implements SendMedia
         contactStatus.setText(getString(R.string.online));
     }
 
-    private Bitmap bitmap;
-
     @Override
     public void onThumbnailComplete(Bitmap bitmap) {
-        this.bitmap = bitmap;
-    }
-
-    @Override
-    public void onFullSizePhotoComplete(Uri imageUri) {
-        sendPhotoMessage(bitmap, imageUri);
+        sendPhotoMessage(bitmap);
         if(messages.size() >= 1){
             adjustTimeCountersForEachMessage();
         }

@@ -1,7 +1,6 @@
 package com.gmail.essam96.muhammad.trainingtask4;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
@@ -59,8 +58,8 @@ public class MessageAdapter extends ArrayAdapter<Message> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View listItemView = convertView;
-        final Message message = getItem(position);
-        final int getType = getItemViewType(position);
+        Message message = getItem(position);
+        int getType = getItemViewType(position);
         if (listItemView == null) {
             if (getType == LAYOUT_FOR_OUTCOMING_MESSAGE) {
                 if(message.getMessageIsPhoto()){
@@ -91,14 +90,6 @@ public class MessageAdapter extends ArrayAdapter<Message> {
         } else if (message.getMessageIsPhoto()){
             ImageView messagePhoto = listItemView.findViewById(R.id.messagePhoto);
             messagePhoto.setImageBitmap(message.getMessageBitmap());
-            listItemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intentToStartPhotoActivity = new Intent(getContext(), PhotoViewActivity.class);
-                    intentToStartPhotoActivity.putExtra("PHOTO_URI", message.getImageUri());
-                    getContext().startActivity(intentToStartPhotoActivity);
-                }
-            });
         }
 
         TextView timeStamp = listItemView.findViewById(R.id.timeStampTextView);

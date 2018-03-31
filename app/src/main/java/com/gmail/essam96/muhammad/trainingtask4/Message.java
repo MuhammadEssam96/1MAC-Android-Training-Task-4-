@@ -1,7 +1,6 @@
 package com.gmail.essam96.muhammad.trainingtask4;
 
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.support.annotation.NonNull;
 
 /**
@@ -22,7 +21,6 @@ public class Message {
     private Bitmap bitmap;
     private Long timeStampLong, timeSince;
     private boolean isOutcoming, isPhoto, isVideo;
-    private Uri imageUri;
     private int messageState;
 
 
@@ -34,13 +32,12 @@ public class Message {
         messageState = MESSAGE_STATE_WAITING;
     }
 
-    Message(Bitmap bitmap, String timeStamp, Long timeStampLong , boolean isOutcoming, boolean isPhoto, Uri imageUri){
+    Message(Bitmap bitmap, String timeStamp, Long timeStampLong , boolean isOutcoming){
         this.bitmap = bitmap;
         this.timeStamp = timeStamp;
         this.isOutcoming = isOutcoming;
         this.timeStampLong = timeStampLong;
-        this.isPhoto = isPhoto;
-        this.imageUri = imageUri;
+        this.isPhoto = true;
         messageState = MESSAGE_STATE_WAITING;
     }
 
@@ -63,6 +60,7 @@ public class Message {
     boolean getMessageOutcoming(){
         return isOutcoming;
     }
+
     void setTimeSince(Long timeSince){
         this.timeSince = timeSince;
     }
@@ -87,11 +85,4 @@ public class Message {
         return isPhoto;
     }
 
-    public Uri getImageUri() {
-        return imageUri;
-    }
-
-    public void setImageUri(Uri imageUri) {
-        this.imageUri = imageUri;
-    }
 }
