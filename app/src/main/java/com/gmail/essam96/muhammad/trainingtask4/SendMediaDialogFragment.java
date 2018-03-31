@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -50,6 +51,7 @@ public class SendMediaDialogFragment extends DialogFragment {
         capturePhotoTexView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(getContext(), "Please note that this will only send a thumbnail of the shot, It is still WIP and will be fully implemented soon.", Toast.LENGTH_LONG).show();
                 dispatchTakePictureIntent();
             }
         });
@@ -57,6 +59,7 @@ public class SendMediaDialogFragment extends DialogFragment {
         captureVideoTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(getContext(), "This feature will be implemented soon", Toast.LENGTH_SHORT).show();
                 //TODO: Implement this.
             }
         });
