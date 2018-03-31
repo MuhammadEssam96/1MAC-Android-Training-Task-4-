@@ -20,7 +20,7 @@ public class Message implements Serializable {
     private static final int MESSAGE_TYPE_VIDEO = 2;
 
     private String text, timeStamp;
-    private Bitmap bitmap;
+    private transient Bitmap bitmap;
     private Long timeStampLong, timeSince;
     private boolean isOutcoming, isPhoto, isVideo;
     private int messageState;
