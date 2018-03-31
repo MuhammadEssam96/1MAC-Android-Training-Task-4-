@@ -170,6 +170,7 @@ public class ConversationActivity extends AppCompatActivity implements SendMedia
                     contactStatus.setText(getString(R.string.typing));
                 }
                 adjustTimeCountersForEachMessage();
+                listView.smoothScrollToPosition(listView.getCount());
             }
 
             @Override
@@ -235,6 +236,7 @@ public class ConversationActivity extends AppCompatActivity implements SendMedia
         }
         messageAdapter.notifyDataSetChanged();
         messageEditText.setText("");
+        listView.smoothScrollToPosition(listView.getCount());
         contactStatus.setText(getString(R.string.online));
     }
 
@@ -267,6 +269,7 @@ public class ConversationActivity extends AppCompatActivity implements SendMedia
         }
         messageAdapter.notifyDataSetChanged();
         messageEditText.setText("");
+        listView.smoothScrollToPosition(listView.getCount());
         contactStatus.setText(getString(R.string.online));
     }
 
