@@ -3,14 +3,11 @@ package com.gmail.essam96.muhammad.trainingtask4;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Point;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.content.FileProvider;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -19,12 +16,6 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
-import android.widget.Toast;
-import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -33,8 +24,6 @@ public class SendMediaDialogFragment extends DialogFragment {
     public  interface OnCompleteListener {
         void onThumbnailComplete(Bitmap bitmap);
     }
-
-    private OnCompleteListener listener;
 
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     public SendMediaDialogFragment(){
@@ -105,7 +94,7 @@ public class SendMediaDialogFragment extends DialogFragment {
     }
 
     public void sendBackResult(Bitmap bitmap){
-        listener = (OnCompleteListener) getActivity();
+        OnCompleteListener listener = (OnCompleteListener) getActivity();
         listener.onThumbnailComplete(bitmap);
     }
 }

@@ -2,7 +2,6 @@ package com.gmail.essam96.muhammad.trainingtask4;
 
 import android.graphics.Bitmap;
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
