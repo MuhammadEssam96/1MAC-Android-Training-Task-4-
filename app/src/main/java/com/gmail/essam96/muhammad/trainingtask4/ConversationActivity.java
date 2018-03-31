@@ -166,13 +166,17 @@ public class ConversationActivity extends AppCompatActivity implements SendMedia
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                contactStatus.setText(getString(R.string.typing));
+                if(!isOutcoming){
+                    contactStatus.setText(getString(R.string.typing));
+                }
+
             }
 
             @Override
             public void afterTextChanged(Editable s) {
                 if (messageEditText.getText().toString().length() == 0) {
                     cameraButton.setVisibility(View.VISIBLE);
+                    contactStatus.setText(getString(R.string.online));
                 } else {
                     cameraButton.setVisibility(View.GONE);
                 }
