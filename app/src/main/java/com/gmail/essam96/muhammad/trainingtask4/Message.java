@@ -3,11 +3,13 @@ package com.gmail.essam96.muhammad.trainingtask4;
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 
+import java.io.Serializable;
+
 /**
  * Created by muhammadessam on 3/25/18.
  */
 
-public class Message {
+public class Message implements Serializable {
     private static final int MESSAGE_STATE_WAITING = 0;
     private static final int MESSAGE_STATE_SENT = 1;
     private static final int MESSAGE_STATE_DELIVERD = 2;

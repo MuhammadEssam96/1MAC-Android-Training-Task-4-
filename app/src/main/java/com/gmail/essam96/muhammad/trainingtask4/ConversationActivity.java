@@ -3,6 +3,7 @@ package com.gmail.essam96.muhammad.trainingtask4;
 import android.graphics.Bitmap;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -21,6 +22,10 @@ import java.util.Locale;
 
 public class ConversationActivity extends AppCompatActivity implements SendMediaDialogFragment.OnCompleteListener {
 
+    private static final String LIST_STATE = "List State";
+    private static final String LIST_DATA = "List Data";
+    private Parcelable listState = null;
+
     private static final int MESSAGE_STATE_WAITING = 0;
     private static final int MESSAGE_STATE_SENT = 1;
     private static final int MESSAGE_STATE_DELIVERED = 2;
@@ -32,18 +37,50 @@ public class ConversationActivity extends AppCompatActivity implements SendMedia
     private ArrayList<Message> messages = new ArrayList<>();
     private MessageAdapter messageAdapter;
     private boolean isOutcoming = true;
+    private ListView listView;
 
     private MediaPlayer sentMessageSoundPlayer, receivedMessageSoundPlayer;
+
+
+    @Override
+    protected void onResume() {
+        if (listState != null) {
+            listView.setAdapter(messageAdapter);
+            listView.onRestoreInstanceState(listState);
+            listState = null;
+        }
+        super.onResume();
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        listState = savedInstanceState.getParcelable(LIST_STATE);
+        listView.onRestoreInstanceState(listState);
+        super.onRestoreInstanceState(savedInstanceState);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        listState = listView.onSaveInstanceState();
+        outState.putSerializable(LIST_DATA , messages);
+        outState.putParcelable(LIST_STATE, listState);
+        super.onSaveInstanceState(outState);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (savedInstanceState != null){
+            messages = (ArrayList<Message>) savedInstanceState.getSerializable(LIST_DATA);
+            messageAdapter = new MessageAdapter(this, messages);
+            messageAdapter.setNotifyOnChange(true);
+        }
         setContentView(R.layout.activity_conversation);
         final Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         messageAdapter = new MessageAdapter(this, messages);
         messageAdapter.setNotifyOnChange(true);
-        ListView listView = findViewById(R.id.list);
+        listView = findViewById(R.id.list);
         listView.setAdapter(messageAdapter);
         contactStatus = findViewById(R.id.contact_status_TextView);
         messageEditText = findViewById(R.id.messageEditText);
